@@ -1,11 +1,26 @@
-// Container
+// General container
 .container {
-  width: 100%;
-  max-width: 480px;
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  display: flex;
+  overflow: hidden;
 }
 
 // Header
 .header {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #1a1919;
+  color: white;
+  transition: transform 0.5s ease-in-out;
+  z-index: 100;
+
   h1 {
     font-weight: 800;
     font-size: 2rem;
@@ -18,4 +33,35 @@
     font-size: 1.25rem;
     margin: 0;
   }
+
+  button {
+    margin-top: 12px;
+    padding: 12px 24px;
+    border-radius: 4px;
+    background-color: #a3f0d6;
+    color: black;
+    cursor: pointer;
+  }
 }
+
+// Hide Header animation
+.hideHeader {
+  transform: translateX(-100%);
+}
+
+// Game container
+.game {
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  //transform: translateX(100%);
+  //transition: transform 0.5s ease-in-out;
+}
+
+// Show Game animation
+// .showGame {
+//   transform: translateX(0);
+// }

@@ -1,0 +1,100 @@
+.gameContainer {
+    width: 100%;
+    height: 100%;
+    background-color: #1a1919;
+    padding-bottom: 50px;
+    // overflow-y: scroll;
+    color: white;
+}
+
+.gameIntro {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.startGame {
+    height: calc(100vh - 150px);
+    display: flex;
+  flex-direction: column;
+  align-items: center;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+}
+
+.questionContainer {
+    height: 100vh; 
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+    padding-bottom: 250px;
+    box-sizing: border-box;
+    text-align: center; 
+  }
+
+.list {
+    list-style: none;
+    margin-top: 5px;
+    text-align: left;
+    font-weight: 500;
+
+    li {
+        margin-bottom: 8px;
+    }
+}
+
+.questionName {
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-top: 25px;
+}
+
+.answers {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.correctAnswer {
+    color: green;
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.wrongAnswer {
+    color: red;
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-top: 10px;
+    text-align: center;
+}
+
+
+.submitContainer {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    width: 100%;
+    text-align: center;
+}
+
+.results {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+}

@@ -3,6 +3,7 @@
   --red: #E94F4E;
 }
 
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -21,8 +22,10 @@ body {
   align-items: center;
   justify-content: center;
   color: #333;
+  background-color: #1a1919;
 }
 
 * {
+  padding: 0;
   box-sizing: border-box;
 }
