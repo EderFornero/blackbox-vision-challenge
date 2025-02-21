@@ -90,8 +90,8 @@ const Game: React.FC = () => {
 
     return (
         <div className={styles.gameContainer}>
-            <div className={styles.gameIntro}>
-                <h1>RESPONDE LAS PREGUNTAS</h1>
+            <div className={`${styles.gameIntro} ${scrollRef.current.length > 0 ? styles.intoScroll : ""}`}>
+                <h1 className={`${scrollRef.current.length > 0 ? styles.h1Padding : ""}`}>RESPONDE LAS PREGUNTAS</h1>
                 <ul className={styles.list}>
                     <li>Respuesta correcta (Verdadero/Falso): 5 PUNTOS 👍</li>
                     <li>Respuesta correcta (multiple choice): 10 PUNTOS 🔥</li>
@@ -103,12 +103,12 @@ const Game: React.FC = () => {
             <div className={styles.startGame}>
                 {questions.length > 0 ?
                     questions.map((question, index) => (
-                        <div key={question.id} className={styles.questionContainer}>
+                        <div key={question.id} ref={(e) => scrollRef.current[index] = e} className={styles.questionContainer}>
                             {/*se usa esta prop "dangerouslySetInnerHTML" para representar comillas correctamente*/}
                             <h3 dangerouslySetInnerHTML={{ __html: question.question }} className={styles.questionName} />
                             {question.type === "boolean" ? (
                                 <div className={styles.answers}>
-                                    <div ref={(e) => scrollRef.current[index] = e}>
+                                    <div >
                                         <Button
 
                                             selected={isSelectedAnswer[question.id] === "True" ? true : false}
@@ -117,7 +117,7 @@ const Game: React.FC = () => {
                                             True
                                         </Button>
                                     </div>
-                                    <div ref={(e) => scrollRef.current[index] = e}>
+                                    <div >
                                         <Button
                                             selected={isSelectedAnswer[question.id] === "False" ? true : false}
                                             onClick={() => handleAnswerSelection(question.id, "False", index)}>
@@ -128,7 +128,7 @@ const Game: React.FC = () => {
                             ) : (
                                 <div className={styles.answers}>
                                     {question.answers.map((answer: string) => (
-                                        <div key={answer} ref={(e) => scrollRef.current[index] = e}>
+                                        <div key={answer}>
                                             <Button
                                                 selected={isSelectedAnswer[question.id] === answer ? true : false}
                                                 onClick={() => handleAnswerSelection(question.id, answer, index)}>

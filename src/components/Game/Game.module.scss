@@ -7,12 +7,21 @@
     color: white;
 }
 
+
 .gameIntro {
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+// .intoScroll {
+//     padding-top: 50px;
+// }
+
+.h1Padding {
+    font-size: medium;
 }
 
 .startGame {
@@ -32,7 +41,7 @@
     justify-content: center;
     align-items: center;
     padding: 30px;
-    padding-bottom: 250px;
+    padding-bottom: 300px;
     box-sizing: border-box;
     text-align: center; 
   }
