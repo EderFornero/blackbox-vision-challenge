@@ -72,23 +72,23 @@ const Game: React.FC = () => {
 
 
     const personalizedScore = (score: number) => {
-        if (score > 90) return "💯 PERFECT SCORE 💯";
-        if (score > 40 && score <= 95) return "💪 GOOD SCORE 💪";
-        if (score > 10 && score <= 40) return "😀 OK SCORE 😀";
-        if (score < 10) return "💩 BAD SCORE 💩";
+        if (score > 90) return "💯 PERFECTO 💯";
+        if (score > 40 && score <= 95) return "💪 MUY BUENO 💪";
+        if (score > 10 && score <= 40) return "😀 BUENO 😀";
+        if (score < 10) return "💩 MAL 💩";
 
-        return "💩 BAD SCORE 💩";
+        return "💩 MAL 💩";
     }
 
 
     return (
         <div className={styles.gameContainer}>
             <div className={styles.gameIntro}>
-                <h1>ANSWER THE QUESTIONS</h1>
+                <h1>RESPONDE LAS PREGUNTAS</h1>
                 <ul className={styles.list}>
-                    <li>Correct answer (true/false): 5 POINTS 👍</li>
-                    <li>Correct answer (multiple choice): 10 POINTS 🔥</li>
-                    <li>Incorrect answer: 0 POINTS 😢</li>
+                    <li>Respuesta correcta (Verdadero/Falso): 5 PUNTOS 👍</li>
+                    <li>Respuesta correcta (multiple choice): 10 PUNTOS 🔥</li>
+                    <li>Respuesta incorrecta: 0 PUNTOS 😢</li>
                 </ul>
             </div>
 
@@ -97,7 +97,7 @@ const Game: React.FC = () => {
                 {questions.length > 0 ?
                     questions.map((question) => (
                         <div key={question.id} className={styles.questionContainer}>
-                            {/*se usa esta prop para representar comillas correctamente*/}
+                            {/*se usa esta prop "dangerouslySetInnerHTML" para representar comillas correctamente*/}
                             <h3 dangerouslySetInnerHTML={{ __html: question.question }} className={styles.questionName} />
                             {question.type === "boolean" ? (
                                 <div className={styles.answers}>
@@ -146,8 +146,8 @@ const Game: React.FC = () => {
                                         : styles.wrongAnswer
                                 }>
                                     {isSelectedAnswer[question.id] === question.correct_answer
-                                        ? "Correct"
-                                        : "Wrong"}
+                                        ? "Correcto"
+                                        : "Incorrecto"}
                                 </div>
                             )}
                         </div>
@@ -165,7 +165,7 @@ const Game: React.FC = () => {
                 (
                     <div className={styles.submitContainer}>
                         <Button className={styles.submitButton} onClick={handleSubmit}>
-                            Submit Answers
+                            Enviar respuestas
                         </Button>
                     </div>
                 )}
@@ -173,8 +173,9 @@ const Game: React.FC = () => {
 
             {isGameOver && (
                 <div className={styles.results}>
-                    <h2>Your Score: {personalizedScore(score)}</h2>
+                    <h2>Tu puntuación: {personalizedScore(score)}: {score}</h2>
                 </div>
+                //agregar volver a jugar
             )}
 
         </div>

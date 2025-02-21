@@ -18,7 +18,7 @@ const App: React.FC = () => {
           <img alt="BlackBox Vision" src={logo} width={480} />
         </h1>
         <button onClick={() => setIsPlaying(true)}>
-          <h3>Lets get this party started</h3>
+          <h3>¡Empezar a jugar!</h3>
         </button>
       </header>
      
