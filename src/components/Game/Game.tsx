@@ -104,6 +104,15 @@ const Game: React.FC = () => {
             ))
     }
 
+
+    const restartGame = () => {
+        setIsGameOver(false);
+        setIsSelectedAnswer({});
+        setScore(0);
+
+        location.reload();
+    }
+
     return (
         <div className={styles.gameContainer}>
             <div className={`${styles.gameIntro}`}>
@@ -204,8 +213,12 @@ const Game: React.FC = () => {
             {isGameOver && (
                 <div className={styles.results}>
                     <h2>Tu puntuación es: <span className={styles.scoreNumber}>{score}</span> {personalizedScore(score)} </h2>
+                    <button className={styles.restartButton} onClick={restartGame}>
+                        Volver a jugar 
+                        <span>🔄</span>
+                    </button>
                 </div>
-                //agregar volver a jugar
+                
             )}
 
         </div>
