@@ -14,14 +14,10 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-}
 
-// .intoScroll {
-//     padding-top: 50px;
-// }
-
-.h1Padding {
-    font-size: medium;
+    h1 {
+        font-size: medium;
+    }
 }
 
 .startGame {
@@ -44,6 +40,12 @@
     padding-bottom: 300px;
     box-sizing: border-box;
     text-align: center; 
+  }
+
+  .questionNameContainer {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
   }
 
 .list {

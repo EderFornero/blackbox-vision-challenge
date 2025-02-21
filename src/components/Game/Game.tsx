@@ -87,11 +87,27 @@ const Game: React.FC = () => {
         return "💩 MAL 💩";
     }
 
+    console.log(scrollRef.current.length)
+
+    const showResults = (question: Question) => {
+        return (
+             isGameOver && isSelectedAnswer[question.id] && (
+                <div className={
+                    isSelectedAnswer[question.id] === question.correct_answer
+                        ? styles.correctAnswer
+                        : styles.wrongAnswer
+                }>
+                    {isSelectedAnswer[question.id] === question.correct_answer
+                        ? "✅"
+                        : "❌"}
+                </div>
+            ))
+    }
 
     return (
         <div className={styles.gameContainer}>
-            <div className={`${styles.gameIntro} ${scrollRef.current.length > 0 ? styles.intoScroll : ""}`}>
-                <h1 className={`${scrollRef.current.length > 0 ? styles.h1Padding : ""}`}>RESPONDE LAS PREGUNTAS</h1>
+            <div className={`${styles.gameIntro}`}>
+                <h1>RESPONDE LAS PREGUNTAS</h1>
                 <ul className={styles.list}>
                     <li>Respuesta correcta (Verdadero/Falso): 5 PUNTOS 👍</li>
                     <li>Respuesta correcta (multiple choice): 10 PUNTOS 🔥</li>
@@ -105,36 +121,35 @@ const Game: React.FC = () => {
                     questions.map((question, index) => (
                         <div key={question.id} ref={(e) => scrollRef.current[index] = e} className={styles.questionContainer}>
                             {/*se usa esta prop "dangerouslySetInnerHTML" para representar comillas correctamente*/}
+                            <div className={styles.questionNameContainer}>
                             <h3 dangerouslySetInnerHTML={{ __html: question.question }} className={styles.questionName} />
+                            <h3>{showResults(question)}</h3>
+                            </div>
+                           
                             {question.type === "boolean" ? (
                                 <div className={styles.answers}>
-                                    <div >
-                                        <Button
+                                    <Button
+                                        selected={isSelectedAnswer[question.id] === "True" ? true : false}
+                                        onClick={() => handleAnswerSelection(question.id, "True", index)}
+                                    >
+                                        True
+                                    </Button>
 
-                                            selected={isSelectedAnswer[question.id] === "True" ? true : false}
-                                            onClick={() => handleAnswerSelection(question.id, "True", index)}
-                                        >
-                                            True
-                                        </Button>
-                                    </div>
-                                    <div >
-                                        <Button
-                                            selected={isSelectedAnswer[question.id] === "False" ? true : false}
-                                            onClick={() => handleAnswerSelection(question.id, "False", index)}>
-                                            False
-                                        </Button>
-                                    </div>
+                                    <Button
+                                        selected={isSelectedAnswer[question.id] === "False" ? true : false}
+                                        onClick={() => handleAnswerSelection(question.id, "False", index)}>
+                                        False
+                                    </Button>
                                 </div>
                             ) : (
                                 <div className={styles.answers}>
                                     {question.answers.map((answer: string) => (
-                                        <div key={answer}>
-                                            <Button
-                                                selected={isSelectedAnswer[question.id] === answer ? true : false}
-                                                onClick={() => handleAnswerSelection(question.id, answer, index)}>
-                                                <span dangerouslySetInnerHTML={{ __html: answer }} />
-                                            </Button>
-                                        </div>
+                                        <Button
+                                            key={answer}
+                                            selected={isSelectedAnswer[question.id] === answer ? true : false}
+                                            onClick={() => handleAnswerSelection(question.id, answer, index)}>
+                                            <span dangerouslySetInnerHTML={{ __html: answer }} />
+                                        </Button>
 
                                     ))
 
@@ -154,7 +169,7 @@ const Game: React.FC = () => {
                                     </Button> */}
                                 </div>
                             )}
-                            {isGameOver && isSelectedAnswer[question.id] && (
+                            {/* {isGameOver && isSelectedAnswer[question.id] && (
                                 <div className={
                                     isSelectedAnswer[question.id] === question.correct_answer
                                         ? styles.correctAnswer
@@ -164,7 +179,7 @@ const Game: React.FC = () => {
                                         ? "✅"
                                         : "❌"}
                                 </div>
-                            )}
+                            )} */}
                         </div>
                     ))
                     :
@@ -188,7 +203,7 @@ const Game: React.FC = () => {
 
             {isGameOver && (
                 <div className={styles.results}>
-                    <h2>Tu puntuación: <span className={styles.scoreNumber}>{score}</span> {personalizedScore(score)} </h2>
+                    <h2>Tu puntuación es: <span className={styles.scoreNumber}>{score}</span> {personalizedScore(score)} </h2>
                 </div>
                 //agregar volver a jugar
             )}
