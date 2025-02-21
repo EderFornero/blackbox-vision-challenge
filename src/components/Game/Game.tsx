@@ -161,8 +161,8 @@ const Game: React.FC = () => {
                                         : styles.wrongAnswer
                                 }>
                                     {isSelectedAnswer[question.id] === question.correct_answer
-                                        ? "Correcto"
-                                        : "Incorrecto"}
+                                        ? "✅"
+                                        : "❌"}
                                 </div>
                             )}
                         </div>
