@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 /* eslint-disable prettier/prettier */
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Commet } from "react-loading-indicators";
 
 import { getQuestionAPI } from "../../utils/getQuestionAPI";
@@ -16,6 +16,8 @@ const Game: React.FC = () => {
     const [isSelectedAnswer, setIsSelectedAnswer] = useState<{ [key: string]: string }>({});
     const [isGameOver, setIsGameOver] = useState<boolean>(false);
     //let count = 0;
+
+    const scrollRef = useRef<(HTMLDivElement | null)[]>([]);
 
     useEffect(() => {
         const fetchQuestions = async () => {
@@ -45,8 +47,13 @@ const Game: React.FC = () => {
     }, [])
 
 
-    const handleAnswerSelection = (questionId: string, answer: string) => {
+    const handleAnswerSelection = (questionId: string, answer: string, index: number) => {
         setIsSelectedAnswer((prev) => ({ ...prev, [questionId]: answer }));
+
+        //scroll
+        if (index < questions.length - 1 && scrollRef.current[index + 1]) {
+            scrollRef.current[index + 1]?.scrollIntoView({ behavior: "smooth" });
+        }
     }
 
 
@@ -95,33 +102,41 @@ const Game: React.FC = () => {
 
             <div className={styles.startGame}>
                 {questions.length > 0 ?
-                    questions.map((question) => (
+                    questions.map((question, index) => (
                         <div key={question.id} className={styles.questionContainer}>
                             {/*se usa esta prop "dangerouslySetInnerHTML" para representar comillas correctamente*/}
                             <h3 dangerouslySetInnerHTML={{ __html: question.question }} className={styles.questionName} />
                             {question.type === "boolean" ? (
                                 <div className={styles.answers}>
-                                    <Button
-                                        selected={isSelectedAnswer[question.id] === "True" ? true : false}
-                                        onClick={() => handleAnswerSelection(question.id, "True")}>
-                                        True
-                                    </Button>
-                                    <Button
-                                        selected={isSelectedAnswer[question.id] === "False" ? true : false}
-                                        onClick={() => handleAnswerSelection(question.id, "False")}>
-                                        False
-                                    </Button>
+                                    <div ref={(e) => scrollRef.current[index] = e}>
+                                        <Button
+
+                                            selected={isSelectedAnswer[question.id] === "True" ? true : false}
+                                            onClick={() => handleAnswerSelection(question.id, "True", index)}
+                                        >
+                                            True
+                                        </Button>
+                                    </div>
+                                    <div ref={(e) => scrollRef.current[index] = e}>
+                                        <Button
+                                            selected={isSelectedAnswer[question.id] === "False" ? true : false}
+                                            onClick={() => handleAnswerSelection(question.id, "False", index)}>
+                                            False
+                                        </Button>
+                                    </div>
                                 </div>
                             ) : (
                                 <div className={styles.answers}>
                                     {question.answers.map((answer: string) => (
+                                        <div key={answer} ref={(e) => scrollRef.current[index] = e}>
                                             <Button
-                                                key={answer}
                                                 selected={isSelectedAnswer[question.id] === answer ? true : false}
-                                                onClick={() => handleAnswerSelection(question.id, answer)}>
+                                                onClick={() => handleAnswerSelection(question.id, answer, index)}>
                                                 <span dangerouslySetInnerHTML={{ __html: answer }} />
                                             </Button>
-                                        ))
+                                        </div>
+
+                                    ))
 
                                     }
                                     {/* {question.incorrect_answers.map((answer: string) => (
@@ -173,7 +188,7 @@ const Game: React.FC = () => {
 
             {isGameOver && (
                 <div className={styles.results}>
-                    <h2>Tu puntuación: {personalizedScore(score)}: {score}</h2>
+                    <h2>Tu puntuación: <span className={styles.scoreNumber}>{score}</span> {personalizedScore(score)} </h2>
                 </div>
                 //agregar volver a jugar
             )}
