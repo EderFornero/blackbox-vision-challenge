@@ -87,7 +87,7 @@ const Game: React.FC = () => {
         return "💩 MAL 💩";
     }
 
-    console.log(scrollRef.current.length)
+    console.log("ref", scrollRef.current.length)
 
     const showResults = (question: Question) => {
         return (
