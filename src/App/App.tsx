@@ -15,7 +15,7 @@ const App: React.FC = () => {
     <main className={styles.container}>
       <header className={`${styles.header} ${isPlaying ? styles.hideHeader : ""}`}>
         <h1>
-          <img alt="BlackBox Vision" src={logo} width={480} />
+          <img alt="BlackBox Vision" className={styles.logo} src={logo}/>
         </h1>
         <button onClick={() => setIsPlaying(true)}>
           <h3>¡Empezar a jugar!</h3>

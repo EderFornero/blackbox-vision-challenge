@@ -44,6 +44,10 @@
   }
 }
 
+.logo {
+  width: 480px;
+}
+
 // Hide Header animation
 .hideHeader {
   transform: translateX(-100%);
@@ -68,6 +72,11 @@
 
 
 @media (max-width: 768px) {
+
+  .logo {
+    width: 300px;
+  }
+
   .hideHeader {
     transform: translateX(-150%);
   }
